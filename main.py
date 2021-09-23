@@ -9,6 +9,7 @@ class Queens:
                 print(f'Current H: {self.h}')
                 print('Current State:')
                 self.showBoard(self.board)
+                print('')
                 self.actions(self.board, self.moves, self.restarts)
 
         def makeEmptyBoard(self):
@@ -98,7 +99,7 @@ class Queens:
                                 print("Restarting...")
                                 r += 1
                                 board = self.makeBoard()
-                        minCol = self.findMinCol(hArray, n, h)
+                        minCol, n = self.findMinCol(hArray, n, h)
                         minRow = self.findMinRow(hArray, n, h)
                         for i in range(8):
                                 board[i][minCol] = 0
@@ -122,9 +123,6 @@ class Queens:
                                 print('Setting new current state')
                                 print('')
 
-                        
-                
-
         def findMinCol(self, hArr, n, h):
                 minCol = 8
                 minVal = 8
@@ -138,7 +136,8 @@ class Queens:
                                 if hArr[i][x] < h:
                                         count += 1
                 n = count
-                return minCol
+                both = (minCol, n)
+                return both
         
         def findMinRow(self, hArr, n, h):
                 minRow = 8

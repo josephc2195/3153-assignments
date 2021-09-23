@@ -6,8 +6,8 @@ class Queens:
                 self.restarts = 0
                 self.moves = 0
                 self.board = self.makeBoard()
-                h = 0
-                print(f'Current H: {h}')
+                self.h = self.countH(self.board)
+                print(f'Current H: {self.h}')
                 print('Current State:')
                 self.showBoard(self.board)
                 self.actions(self.board, self.moves, self.restarts)
@@ -37,28 +37,26 @@ class Queens:
         def colCheck(self, board, x):
                 c = 0
                 for i in range(8):
-                        if board[i][x]:
+                        if board[x][i]:
                                 c += 1
                 if c > 1:
                         return True
 
         def diagnalCheck(self, board, x, n):
-                c = 0
                 for i in range(1, 8):
                         if x+i < 7 and n+i < 7:
                                 if board[x+i][n+i]:
-                                        c += 1
+                                        return True
                         if x-i >= 0 and n-i >=0:
                                 if board[x-i][n-i]:
-                                        c += 1
+                                        return True
                         if x+i < 7 and n-i >=0:
                                 if board[x+i][n-i]:
-                                        c += 1
+                                        return True
                         if x-i >= 0 and n+i < 7:
                                 if board[x-i][n+i]:
-                                        c += 1
-                if c > 1:
-                        return True
+                                        return True
+
 
         def countH(self, board):
                 collisions = 0
@@ -129,13 +127,13 @@ class Queens:
                 
 
         def findMinCol(self, hArr, n, h):
-                minCol = 0
-                minVal = 0
+                minCol = 8
+                minVal = 8
                 count = 0
 
                 for i in range(8):
                         for x in range(8):
-                                if hArr[i][x]:
+                                if hArr[i][x] < minVal:
                                         minVal = hArr[i][x]
                                         minCol = x
                                 if hArr[i][x] < h:
@@ -149,7 +147,7 @@ class Queens:
 
                 for i in range(8):
                         for x in range(8):
-                                if hArr[i][x]:
+                                if hArr[i][x] < minVal:
                                         minVal = hArr[i][x]
                                         minRow = i  
                 return minRow

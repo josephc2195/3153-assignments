@@ -1,5 +1,4 @@
-import numpy as np
-
+from numpy import random
 class Queens:
 
         def __init__(self):
@@ -18,7 +17,7 @@ class Queens:
         def makeBoard(self):
                 board = [[0 for i in range(8)] for x in range(8)]
                 for i in range(8):
-                        board[np.random.randint(0, 8)][i] = 1                
+                        board[random.randint(0, 8)][i] = 1                
                 return board
 
         def showBoard(self, board):
@@ -81,8 +80,8 @@ class Queens:
                 while(solved == False):
                         colCount = 0
 
-                        for i in range(8):
-                                copyBoard.append(board[i])
+                        
+                        copyBoard = [row.copy() for row in board]
                                 
                         while colCount < 8:
                                 for i in range(8):

@@ -4,19 +4,20 @@ from numpy import random as ra
 class Star:
         def __init__(self):
 
-                self.board = np.empty((15, 15), dtype=object)
+                board = np.empty((15, 15), dtype=object)
 
                 for i in range(15):
                         for x in range(15):
                                 ten = ra.randint(1, 10)
                                 if ten != 1:
-                                        self.board[i][x] = 0
+                                        board[i][x] = 0
                                 else:
-                                        self.board[i][x] = 1
+                                        board[i][x] = 1
                 self.startRow, self.startCol = self.getStart()
                 self.goalRow, self.goalCol = self.getGoal()
                 self.openList = [(self.startRow, self.startCol)]
-                self.board[]
+                self.board[self.startRow][self.startCol] = 'S'
+                self.board[self.goalRow][self.goalCol] = 'G'
 
                 
                 
@@ -24,14 +25,14 @@ class Star:
 
                 
         def getStart(self):
-                row = int(input("Enter the row you want the starting node to be on: "))
-                col = int(input("Enter the column you want the starting node to be on: "))
+                row = int(input('Enter the row you want the starting node to be on: '))
+                col = int(input('Enter the column you want the starting node to be on: '))
                 startCoords = (row, col)
                 return startCoords
 
         def getGoal(self):
-                row = input("Enter the row you want the goal node to be on: ")
-                col = input("Enter the column you want the goal node to be on: ")
+                row = input('Enter the row you want the goal node to be on: ')
+                col = input('Enter the column you want the goal node to be on: ')
                 goalCoords = (row, col)
                 return goalCoords
 
@@ -45,6 +46,6 @@ class Star:
                         currentH += goalRow - startRow
                 else:
                         currentH += startRow - goalRow
-                print(f"Current H: {currentH}")
+                print(f'Current H: {currentH}')
 
                 

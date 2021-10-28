@@ -1,5 +1,8 @@
 import numpy as np
 from numpy import random as ra
+import pygame
+import sys
+from queue import PriorityQueue
 
 class Star:
         def __init__(self):
@@ -25,7 +28,6 @@ class Star:
         def showBoard(self, board):
                 print(board)
 
-                
         def getStart(self):
                 row = int(input('Now, enter the row you want the starting node to be on (1-15): ')) - 1 
                 col = int(input('Enter the column you want the starting node to be on (1-15): ')) - 1 
@@ -46,6 +48,7 @@ class Star:
                         return True
                 else:
                         return 0
+
         def getH(self, goalRow, goalCol, startRow, startCol):
                 currentH = 0
                 if goalCol > startCol:

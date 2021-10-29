@@ -1,11 +1,12 @@
 class Node:
-        def __init__(self, r, c, t):
+        def __init__(self, r, c, t, w):
                 self.row = r
                 self.col = c
                 self.type = t
+                self.neighbors = []
 
         def setF(self):
-                self.f = g+h
+                self.f = self.g+self.h
         
         def setG(self, value):
                 self.g = value
@@ -32,4 +33,4 @@ class Node:
                 self.n = obj
                 return self.row == self.n.getRow() and self.col == self.n.getCol()
                 
-
+        

@@ -21,6 +21,9 @@ class Star:
                 self.board[self.startRow][self.startCol] = 'S'
                 self.board[self.goalRow][self.goalCol] = 'G'
                 cont = self.confirmBoard(self.board)
+                self.currentH = self.getH(self.goalRow, self.goalCol, self.startRow, self.startCol)
+
+
         
         def showBoard(self, board):
                 print(board)

@@ -10,8 +10,6 @@ class Star:
                 cont = False
                 while cont == False:
                         self.board = np.empty((15, 15), dtype=Node)
-                        self.openList = np.empty((15, 15), dtype=Node)
-                        self.closedList = np.empty((15, 15), dtype=Node)
 
                         for i in range(15):
                                 for x in range(15):
@@ -24,7 +22,7 @@ class Star:
                         self.showBoard(self.board)
                         self.startRow, self.startCol = self.getStart()
                         self.goalRow, self.goalCol = self.getGoal()
-                        self.openList[0] = [(self.startRow, self.startCol)]
+                        self.openList = [(self.startRow, self.startCol)]
                         self.board[self.startRow][self.startCol] = 'S'
                         self.board[self.goalRow][self.goalCol] = 'G'
                         cont = self.confirmBoard(self.board)
@@ -102,20 +100,24 @@ class Star:
                 print(f'Current H: {currentH}')
         
         def actions(self):
-                while len(self.openList) != 0:
-                        currentNode = self.findLowestF()
-                        self.openList = np.delete(self.openList, currentNode)
-                        print(currentNode)
-
+                #while len(self.openList) != 0:
+                currentNode = self.openList.pop(0)
                         #if self.currentNode == goalNode:
+                self.findNbrs(currentNode)
 
-        #def findNbrs(self, currentNode):
 
-
-                        
-        
-        
-
+        def findNbrs(self, currentNode):
+                row, col = currentNode
+                print(row)
+                print(col)
+                if row > 0:
+                        self.openList.append((row-1, col))
+                elif row < 15:
+                        self.openList.append((row+1, col))
+                if col > 0:
+                        self.openList.append((row, col-1))
+                elif col < 15:
+                        self.openList.append((row, col+1))
 
         
 

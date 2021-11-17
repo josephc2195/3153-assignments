@@ -36,34 +36,35 @@ public class AIScript_JosephChica : MonoBehaviour {
 
         //Your AI code goes here
         float minDist = 1000;
-        float curDist;
         float[] heuristic = new float[8];
-        int maxH = 0;
+        int minH = 0;
+        mainScript.moveUp();
+        mainScript.push();
 
         for (int i = 0; i < 8; i++)
         {
             heuristic[i] = CalcH(mainScript, i);
-            if(heuristic[i] > heuristic[maxH])
+            if(heuristic[i] < 0 && heuristic[i] < heuristic[minH])
             {
-                maxH = i;
+                minH = i;
             }
         }
-
         float myLoc = mainScript.getCharacterLocation();
         float[] buttonLocs = mainScript.getButtonLocations();
-        if(myLoc > buttonLocs[maxH])
+        print("My location: " + myLoc);
+        print("Button location with min H " + buttonLocations[minH]);
+        if(mainScript.getCharacterLocation() < buttonLocs[minH])
         {
-            mainScript.moveUp();
+            print("going down");
+            mainScript.moveDown();
             mainScript.push();
         }
         else
         {
-            mainScript.moveDown();
+            print("going up");
+            mainScript.moveUp();
             mainScript.push();
         }
-        
-
-
     }
 
     private float CalcH(CharacterScript ms, int row)
@@ -72,15 +73,28 @@ public class AIScript_JosephChica : MonoBehaviour {
         float myLoc = ms.getCharacterLocation();
         float[] speeds = ms.getBombSpeeds();
         float[] buttonLocs = ms.getButtonLocations();
+        beltDirections = ms.getBeltDirections();
+        float opsLoc = ms.getOpponentLocation();
+        float bombTime;
+        float buttonTime;
+        float timeLeft;
 
-        float bombTime = dist[row] / speeds[row];
-        float buttonTime = Math.Abs(myLoc - buttonLocs[row]) / ms.getPlayerSpeed();
-        float timeLeft = bombTime - buttonTime;
+        if(beltDirections[row] == -1 || beltDirections[row] == 0)
+        {
+            bombTime = dist[row] / speeds[row];
+            return bombTime;
+            //print("speed: " + speeds[row]);
+            //buttonTime = Math.Abs(myLoc - buttonLocs[row]) / ms.getPlayerSpeed();
+            //timeLeft = bombTime - buttonTime;
+            //return timeLeft;
+        }
 
-        return timeLeft > 0 ? timeLeft : (timeLeft) * (-1);
+        else
+        {
+            return -1;
+        }
+
         
-       
+        
     }
-
-
 }

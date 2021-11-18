@@ -41,7 +41,7 @@ public class AI_Sample : MonoBehaviour {
 		print ("RED BUTTON COOLDOWNS");
 		float[] t = mainScript.getButtonCooldowns ();
 		for (int i = 0; i < t.Length; i++) {
-			print (t [i]);
+			//print (t [i]);
 		}
 		print ("----------------");
 

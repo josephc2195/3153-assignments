@@ -44,24 +44,27 @@ public class AIScript_JosephChica : MonoBehaviour {
         for (int i = 0; i < 8; i++)
         {
             heuristic[i] = CalcH(mainScript, i);
-            if(heuristic[i] < 0 && heuristic[i] < heuristic[minH])
+            if(heuristic[i] > 0 && heuristic[i] < heuristic[minH])
             {
                 minH = i;
             }
+            print("Loop number: " + i + " current minh: " + minH + " H: " + heuristic[i]);
         }
+        print("Min h outside for: " + minH);
         float myLoc = mainScript.getCharacterLocation();
         float[] buttonLocs = mainScript.getButtonLocations();
-        print("My location: " + myLoc);
-        print("Button location with min H " + buttonLocations[minH]);
-        if(mainScript.getCharacterLocation() < buttonLocs[minH])
+
+        if(myLoc < buttonLocs[minH])
         {
-            print("going down");
+            print("My location: " + myLoc + " Button Location: " + buttonLocs[minH]);
+            print("Button location with " + minH + " as " + buttonLocs[minH]);
             mainScript.moveDown();
             mainScript.push();
         }
         else
         {
-            print("going up");
+            print("My location: " + myLoc + " Button Location: " + buttonLocs[minH]);
+            print("Button location with " + minH + " as " + buttonLocs[minH]);
             mainScript.moveUp();
             mainScript.push();
         }
@@ -82,11 +85,9 @@ public class AIScript_JosephChica : MonoBehaviour {
         if(beltDirections[row] == -1 || beltDirections[row] == 0)
         {
             bombTime = dist[row] / speeds[row];
-            return bombTime;
-            //print("speed: " + speeds[row]);
-            //buttonTime = Math.Abs(myLoc - buttonLocs[row]) / ms.getPlayerSpeed();
-            //timeLeft = bombTime - buttonTime;
-            //return timeLeft;
+            buttonTime = Math.Abs(myLoc - buttonLocs[row]) / ms.getPlayerSpeed();
+            timeLeft = bombTime - buttonTime;
+            return timeLeft;
         }
 
         else
